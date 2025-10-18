@@ -1,7 +1,17 @@
+# Virtual environment
 .venv/
+
+# Data artifacts
+data/raw/
+data/prepared/
+data/embeddings/
+
+# Cache / temp files
 __pycache__/
 *.pyc
-data/raw/*
-data/prepared/*
-data/embeddings/*
-.DS_Store
+*.pyo
+*.DS_Store
+
+# Model / large files
+*.npy
+*.index
