@@ -28,7 +28,6 @@ tests/ → Unit tests
 ---
 
 ## ⚙️ Setup Instructions
-
 1️⃣ Clone the Repo
 ```bash
 git clone https://github.com/hetavi4/psa-reliAI.git
