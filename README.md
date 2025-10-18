@@ -101,12 +101,7 @@ Database	SQLite / PostgreSQL
 Language	Python
 Data Handling	Pandas, regex, openpyxl
 Environment	virtualenv
-👥 Team Roles
-Member	Responsibility
-Hetavi Shah	RAG pipeline, embeddings, retrieval, integration
-Teammate 2	API & FastAPI backend logic
-Teammate 3	Streamlit frontend (UI/UX)
-Teammate 4	Database schema, escalation logic, connection handling
+
 🧠 Future Enhancements
 
 Integrate real-time escalation predictions
