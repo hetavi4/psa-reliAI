@@ -13,7 +13,7 @@ def get_base64_of_image(image_file):
     with open(image_file, "rb") as f:
         return base64.b64encode(f.read()).decode()
 
-img_base64 = get_base64_of_image("img1.jpg")
+img_base64 = get_base64_of_image("frontend/img1.jpg")
 
 def show_login():
     st.markdown("<div class='login'>", unsafe_allow_html=True)
