@@ -6,6 +6,11 @@ Handles prompt construction and LLM-based generation for the RAG pipeline.
 import os
 from typing import Dict, Any, List
 from textwrap import dedent
+from dotenv import load_dotenv
+import requests
+import json
+
+load_dotenv()
 
 
 def make_prompt(query: str, context: dict) -> str:
@@ -50,24 +55,50 @@ def generate_answer(prompt: str) -> str:
     """
     import subprocess
 
-    if os.getenv("OPENAI_API_KEY"):
-        from openai import OpenAI
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise ValueError("Missing API key environment variable")
+    url = "https://psacodesprint2025.azure-api.net/openai/deployments/gpt-4.1-nano/chat/completions?api-version=2025-01-01-preview"
 
-        client = OpenAI()
-        completion = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[{"role": "user", "content": prompt}],
-        )
-        return completion.choices[0].message.content
+    headers = {
+        "Content-Type":"application/json",
+        "api-key":api_key,
+    }
 
-    # fallback: try local Ollama if available
-    try:
-        result = subprocess.run(
-            ["ollama", "run", "llama3.1", prompt],
-            capture_output=True,
-            text=True,
-            timeout=60,
-        )
-        return result.stdout.strip() or "(No output from Ollama)"
-    except Exception as e:
-        return f"LLM provider not configured: {e}"
+    payload = {
+        "messages": [
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt},
+        ],
+        "temperature": 0.7,
+    }
+
+    response = requests.post(url, headers=headers, data=json.dumps(payload))
+
+    if response.status_code != 200:
+        raise Exception(f"API call failed: {response.status_code}, {response.text}")
+
+    data = response.json()
+    return data["choices"][0]["message"]["content"]
+
+    # if os.getenv("OPENAI_API_KEY"):
+    #     from openai import OpenAI
+
+    #     client = OpenAI()
+    #     completion = client.chat.completions.create(
+    #         model="gpt-4o-mini",
+    #         messages=[{"role": "user", "content": prompt}],
+    #     )
+    #     return completion.choices[0].message.content
+
+    # # fallback: try local Ollama if available
+    # try:
+    #     result = subprocess.run(
+    #         ["ollama", "run", "llama3.1", prompt],
+    #         capture_output=True,
+    #         text=True,
+    #         timeout=60,
+    #     )
+    #     return result.stdout.strip() or "(No output from Ollama)"
+    # except Exception as e:
+    #     return f"LLM provider not configured: {e}"
