@@ -1,6 +1,6 @@
 # tests/test_rag_local.py
-from ai.retriever import Retriever
-from ai.generator import make_prompt, generate_answer
+from backend.ai.retriever import Retriever
+from backend.ai.generator import make_prompt, generate_answer
 
 def main():
     # Initialize retriever

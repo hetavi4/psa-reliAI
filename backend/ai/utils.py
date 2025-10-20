@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / "data"
 EMB  = DATA / "embeddings"
 
