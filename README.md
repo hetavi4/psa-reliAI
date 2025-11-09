@@ -30,9 +30,6 @@ data/
 scripts/ → Data preprocessing scripts
 tests/ → Unit and integration tests
 
-yaml
-Copy code
-
 ---
 
 ## ⚙️ Setup Instructions
